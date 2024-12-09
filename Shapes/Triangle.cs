@@ -1,3 +1,5 @@
+using System.Linq;
+
 namespace Shapes;
 
 public class Triangle : IShape
@@ -19,14 +21,13 @@ public class Triangle : IShape
 
     public double CalculateArea()
     {
-        var p = (A + B + C) / 2; // semiperimetr
+        var p = (A + B + C) / 2;
         return Math.Sqrt(p * (p - A) * (p - B) * (p - C)); 
     }
 
     public bool IsTriangleRight()
     {
-        double[] triangle = { A, B, C };
-        Array.Sort(triangle);
-        return Math.Pow(triangle[0], 2) + Math.Pow(triangle[1], 2) == Math.Pow(triangle[2], 2); //We check whether a triangle is right-angled using the Pythagorean theorem
+        var sortedSides = new[] { A, B, C }.OrderBy(side => side).ToArray();
+        return Math.Pow(sortedSides[0], 2) + Math.Pow(sortedSides[1], 2) == Math.Pow(sortedSides[2], 2); 
     }
 }
